@@ -2276,7 +2276,7 @@
     </section>
 
     <!-- Testimonials -->
-    <section class="testimonials">
+    <!-- <section class="testimonials">
         <div class="container">
             <div class="section-header">
                 <span class="section-badge">Testimonials</span>
@@ -2319,7 +2319,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- CTA Banner -->
     <section class="cta-banner">
@@ -2331,7 +2331,7 @@
     </section>
 
     <!-- Stats Section -->
-    <section class="stats-section">
+    <!-- <section class="stats-section">
         <div class="container">
             <div class="stats-grid">
                 <div class="stat-item">
@@ -2352,7 +2352,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- Vision Mission Section -->
     <section class="vision-mission">
@@ -2670,6 +2670,10 @@
                 <h2>Quality Assurance</h2>
             </div>
             <div class="cert-grid">
+                 <div class="cert-badge">
+                    <h5>IEC</h5>
+                    <span>Certified</span>
+                </div>
                 <div class="cert-badge">
                     <h5>FSSAI</h5>
                     <span>Food Safety Certified</span>
@@ -2691,7 +2695,7 @@
                 <p>Everything you need to know about importing from Nouriva</p>
             </div>
             <div class="export-grid">
-                <div class="export-card">
+                <!-- <div class="export-card">
                     <h3><span>🌍</span> Countries We Export To</h3>
                     <div class="country-tags">
                         <div class="country-tag">🇬🇧 United Kingdom</div>
@@ -2710,7 +2714,7 @@
                         <div class="country-tag">🇯🇵 Japan</div>
                         <div class="country-tag">🇰🇷 South Korea</div>
                     </div>
-                </div>
+                </div> -->
                 <div class="export-card">
                     <h3><span>📦</span> Packaging Options</h3>
                     <ul class="export-list">
@@ -2823,7 +2827,8 @@
                 <div class="contact-form-wrapper">
                     <h3>Send Us a Message</h3>
                     <p>Fill out the form below and we'll get back to you within 24 hours.</p>
-                    <form id="contactForm" onsubmit="handleSubmit(event)">
+                    <form id="contactForm" action="https://formspree.io/f/xqenajgz" method="POST">
+                        <input type="hidden" name="_subject" value="New Inquiry from Nouriva Website">
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="name">Your Name *</label>
@@ -2837,26 +2842,7 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="country">Country *</label>
-                                <select id="country" name="country" required>
-                                    <option value="">Select Country</option>
-                                    <option value="UK">United Kingdom</option>
-                                    <option value="UAE">UAE</option>
-                                    <option value="Germany">Germany</option>
-                                    <option value="Singapore">Singapore</option>
-                                    <option value="USA">USA</option>
-                                    <option value="Australia">Australia</option>
-                                    <option value="Canada">Canada</option>
-                                    <option value="Netherlands">Netherlands</option>
-                                    <option value="Saudi Arabia">Saudi Arabia</option>
-                                    <option value="Qatar">Qatar</option>
-                                    <option value="Kuwait">Kuwait</option>
-                                    <option value="Oman">Oman</option>
-                                    <option value="Malaysia">Malaysia</option>
-                                    <option value="Japan">Japan</option>
-                                    <option value="South Korea">South Korea</option>
-                                    <option value="India">India</option>
-                                    <option value="Other">Other</option>
-                                </select>
+                                <input type="text" id="country" name="country" required placeholder="Your country">
                             </div>
                             <div class="form-group">
                                 <label for="product">Product Interest *</label>
@@ -2915,11 +2901,11 @@
                         <h5>⏱ We respond within 24 hours</h5>
                         <p>Business hours: Mon-Sat, 9 AM - 6 PM IST</p>
                     </div>
-                    <div class="sample-cta">
+                    <!-- <div class="sample-cta">
                         <h4>Request a Free Sample</h4>
                         <p>Try our premium finger millet before placing your order</p>
                         <a href="#contactForm" class="btn">Request Sample</a>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -2956,7 +2942,7 @@
                         <li><a href="#export">Export Details</a></li>
                         <li><a href="#export">Packaging Options</a></li>
                         <li><a href="#export">Payment Terms</a></li>
-                        <li><a href="#contact">Request Quote</a></li>
+                        <li><a href="#contact">Get Quote</a></li>
                     </ul>
                 </div>
                 <div class="footer-contact">
@@ -2966,8 +2952,8 @@
                     <p>📍 Bangalore, Karnataka, India</p>
                     <div class="social-links">
                         <a href="#" class="social-link" title="LinkedIn">in</a>
-                        <a href="#" class="social-link" title="Instagram">ig</a>
-                        <a href="#" class="social-link" title="Facebook">fb</a>
+                        <!-- <a href="#" class="social-link" title="Instagram">ig</a>
+                        <a href="#" class="social-link" title="Facebook">fb</a> -->
                     </div>
                 </div>
             </div>
@@ -3008,6 +2994,44 @@
             }
         });
 
+        // Form Submission with AJAX (no redirect)
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const formData = new FormData(form);
+            const submitBtn = form.querySelector('button[type="submit"]');
+
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('formSuccess').classList.add('show');
+                    form.reset();
+                    setTimeout(() => {
+                        document.getElementById('formSuccess').classList.remove('show');
+                    }, 5000);
+                } else {
+                    alert('Oops! There was a problem. Please try again.');
+                }
+            })
+            .catch(error => {
+                alert('Oops! There was a problem. Please try again.');
+            })
+            .finally(() => {
+                submitBtn.textContent = 'Send Message';
+                submitBtn.disabled = false;
+            });
+        });
+
         // FAQ Toggle
         function toggleFaq(element) {
             const faqItem = element.parentElement;
@@ -3020,43 +3044,6 @@
             });
 
             faqItem.classList.toggle('active');
-        }
-
-        // Form Submission Handler
-        function handleSubmit(event) {
-            event.preventDefault();
-
-            // Basic validation
-            const form = event.target;
-            const name = form.name.value.trim();
-            const email = form.email.value.trim();
-            const country = form.country.value;
-            const product = form.product.value;
-            const message = form.message.value.trim();
-
-            if (!name || !email || !country || !product || !message) {
-                alert('Please fill in all required fields.');
-                return;
-            }
-
-            // Email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                alert('Please enter a valid email address.');
-                return;
-            }
-
-            // Show success message
-            const successMsg = document.getElementById('formSuccess');
-            successMsg.classList.add('show');
-
-            // Reset form
-            form.reset();
-
-            // Hide success message after 5 seconds
-            setTimeout(() => {
-                successMsg.classList.remove('show');
-            }, 5000);
         }
 
         // Smooth scroll for anchor links
